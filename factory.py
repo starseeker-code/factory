@@ -27,9 +27,9 @@ class Politico(IPersona):
     def actividad(self):
         print(f'{self.nombre} esta engañando')
     
-# 3 - Patron creacional fabrica (mezcla de variantes 1 y 2)
+# 3 - Patron creacional fabrica
 
-class IFPersona(ABC):
+class IFPersona(ABC):  # Interfaz creadora (patron fabrica)
     def __init__(self, nombre):
         self.nombre = nombre
         
