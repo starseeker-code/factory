@@ -29,34 +29,32 @@ class Politico(IPersona):
     
 # 3 - Patron creacional fabrica (mezcla de variantes 1 y 2)
 
-class Persona:  # Interfaz que combina tanto la logica (trabajar) como la creacion (asignar_trabajo) y desacopla seleccion
+class IFPersona(ABC):
     def __init__(self, nombre):
         self.nombre = nombre
-    
-    def asignar_trabajo(self, trabajo):  # Selecciona en runtime la fabrica concreta, que creara el producto concreto
-        match trabajo.lower():
-            case "programador":
-                __instancia = FProgramador(nombre)
-            case "politico":
-                __instancia = FPolitico(nombre)
-            case _ :
-                raise TypeError('No se tiene ese trabajo')
-        __instancia.trabajar()  # Ejecuta la logica (en este caso acoplado, se puede desacoplar)
         
-    def trabajar(self):  # Logica, que se utiliza desde los productos
+    @abstractmethod
+    def construir(self):
+        ...
+    
+    def trabajar(self):
         persona = self.construir()
         persona.que_soy()
         persona.actividad()
-
-class FProgramador(Persona):  # Fabricas concretas
+class FProgramador(IFPersona):  # Fabricas concretas
     def construir(self):
         return Programador(self.nombre)
     
-class FPolitico(Persona):
+class FPolitico(IFPersona):
     def construir(self):
         return Politico(self.nombre)
 
 if __name__ == '__main__':
     nombre = input("Nombre de la persona: ")
     trabajo = input("Trabajo de la persona: ")
-    Persona(nombre).asignar_trabajo(trabajo)
+    if trabajo.lower() == "programador":  # La eleccion no es en runtime, pero se ha desacoplado creacion y producto
+        FProgramador(nombre).trabajar()
+    elif trabajo.lower() == "politico":
+        FPolitico(nombre).trabajar()
+    else:
+        raise TypeError("Ese trabajo no esta implementado")
