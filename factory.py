@@ -1,6 +1,6 @@
 ### PATRON DE DISEÑO FACTORY ###
-# Esta variante incluye tanto un desacoplamiento de la creacion (con una interfaz)
-# como un selector en runtime que va eligiendo que producto se crea
+# Esta variante necesita elegir cada constructor de forma manual, pero
+# desacopla la creacion de los productos y los productos
 
 from abc import ABC, abstractmethod
 
