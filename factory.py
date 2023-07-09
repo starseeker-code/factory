@@ -1,6 +1,5 @@
 ### PATRON DE DISEÑO FACTORY ###
-# Esta variante incluye tanto un desacoplamiento de la creacion (con una interfaz)
-# como un selector en runtime que va eligiendo que producto se crea
+# Esta es la version "oficial" de refactoring.guru, corresponde a V1
 
 from abc import ABC, abstractmethod
 
